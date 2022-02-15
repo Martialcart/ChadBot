@@ -2,29 +2,32 @@ const space = " ";
 const line_brake = "\n";
 let bot_name = "";
 let sentences = [];
-let words = {};
+let key_words = new Map();
 
 function learn_logic() {
     const brain = document.getElementById("brain");
-    let message = brain.value;
-    let end_of_message = message.length;
+    let code = brain.value;
+    let end_of_code = code.length;
     let pointer = 0;
-    let c = '';
+    let char = '';
     let key_word_mode = true;
     let sentence_index = 0;
 
-    for (i = 0; i < end_of_message; i++){
-        char = message[i];
+    for (i = 0; i < end_of_code; i++){
+        char = code[i];
         if(key_word_mode) {
             if(char === space) {
-                
-            }
-        } else {
-
+                key_words.set(code.substring(pointer, i), sentence_index);
+                pointer = i + 1;
+            }else if(char === '|') {
+                key_word_mode = false;
+                pointer = i + 1;
+            } 
+        else if (char === line_brake){
+            sentences[sentence_index] = code.substring(pointer, i - 1)
+            key_word_mode = true;
+            pointer = i + 1;
         }
-        if(char === space || char === line_brake) pointer = i + 1;
-
-        else console.log(message[i]);
     }
 }
 
@@ -32,8 +35,7 @@ function send_message() {
     const message = document.getElementById("chat_input")
     say("you", message.value);
     respond(message.value);
-    message.value = "";
-    
+    message.value = "";    
 }
 
 function say(sender, message) {
@@ -44,8 +46,3 @@ function say(sender, message) {
     para.append(tekst);
     log.appendChild(para);
 }
-
-function respond() {
-
-}
-
