@@ -1,6 +1,8 @@
 const space = " ";
 const line_brake = "\n";
 let bot_name = "chad";
+let default_response = "";
+let conversation_starter = "";
 let sentences = [];
 let key_words = new Map();
 
@@ -10,7 +12,7 @@ function learn_logic() {
     let end_of_code = code.length;
     let pointer = 0;
     let char = '';
-    let key_word_mode = true;
+    let key_word_mode = false;
     let sentence_index = 0;
 
     for (i = 0; i < end_of_code; i++){
@@ -42,7 +44,7 @@ function send_message() {
 }
 
 function bot_respond(message) {
-    const chars = message.toLowerCase().replace(/[^a-z]+/g).split(" ");
+    const chars = message.toLowerCase().split(" ");
     console.log(chars);
     for (let i = 0; i < chars.length; i++) {
         if(key_words.has(chars[i])) {
