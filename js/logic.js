@@ -1,6 +1,6 @@
 const space = " ";
 const line_brake = "\n";
-let bot_name = "";
+let bot_name = "chad";
 let sentences = [];
 let key_words = new Map();
 
@@ -37,7 +37,19 @@ function learn_logic() {
 function send_message() {
     const message = document.getElementById("chat_input")
     say("you", message.value);
-    message.value = "";    
+    bot_respond(message.value);
+    message.value = "";
+}
+
+function bot_respond(message) {
+    const chars = message.toLowerCase().replace(/[^a-z]+/g).split(" ");
+    console.log(chars);
+    for (let i = 0; i < chars.length; i++) {
+        if(key_words.has(chars[i])) {
+            say(bot_name, sentences[key_words.get(chars[i])]);
+            break;
+        }
+    }
 }
 
 function say(sender, message) {
