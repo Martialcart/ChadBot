@@ -1,8 +1,8 @@
 const space = " ";
 const line_brake = "\n";
 let bot_name = "chad";
-let default_response = "";
-let conversation_starter = "";
+let default_response = "ok";
+let conversation_starter = "hi";
 let sentences = [];
 let key_words = new Map();
 
@@ -48,10 +48,12 @@ function bot_respond(message) {
     console.log(chars);
     for (let i = 0; i < chars.length; i++) {
         if(key_words.has(chars[i])) {
+            console.log("bot respond if reached")
             say(bot_name, sentences[key_words.get(chars[i])]);
-            break;
+            return;
         }
     }
+    say(bot_name, default_response);
 }
 
 function say(sender, message) {
