@@ -63,4 +63,5 @@ function say(sender, message) {
     const tekst = document.createTextNode(sender + ": " + message);
     para.append(tekst);
     log.appendChild(para);
+    log.scrollBy(0,100);
 }
