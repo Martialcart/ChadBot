@@ -44,11 +44,11 @@ function send_message() {
 }
 
 function bot_respond(message) {
+    if(message === "") return;
     const chars = message.toLowerCase().split(" ");
     console.log(chars);
     for (let i = 0; i < chars.length; i++) {
         if(key_words.has(chars[i])) {
-            console.log("bot respond if reached")
             say(bot_name, sentences[key_words.get(chars[i])]);
             return;
         }
@@ -57,7 +57,7 @@ function bot_respond(message) {
 }
 
 function say(sender, message) {
-    if(message === "") return "";
+    if(message === "") return;
     const log = document.getElementById("chat_log");
     const para = document.createElement("P");
     const tekst = document.createTextNode(sender + ": " + message);
